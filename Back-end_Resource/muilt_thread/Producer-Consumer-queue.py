@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import concurrent.futures
 import logging
 import queue
