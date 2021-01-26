@@ -13,7 +13,7 @@ pixmap_themes = [
    "radiance",
    "winxpblue"
 ]
-
+V_list = ['ID', "Car Model", "NUM", 'BOOL']
 
 class App(object):
     def __init__(self, root):
@@ -22,7 +22,7 @@ class App(object):
         self.root.geometry('1250x700+0+0')
         self.root.resizable(0, 0)
         # self.button_list = []
-        self.root.set_theme_advanced(pixmap_themes[7])
+        self.root.set_theme_advanced(pixmap_themes[0])
         # print(self.root.get_themes())
         sh = ttk.Separator(root, orient=HORIZONTAL)
         sh.grid(row=2, column=1, columnspan=3, sticky="we")
@@ -36,7 +36,9 @@ class App(object):
         left = Label(self.root, image=self.left).place(x=-180, y=-50,)
 
         style = ttk.Style()
-        style.configure('TCombobox', padding=[0, 0, 0, 5])
+        style.configure('TEntry', selectbackground='#00B0FF')
+
+        style.configure('TCombobox', padding=[0, 6.5, 0, 6.5], selectbackground='white', selectforeground='black')
         Label(self.root, text='Register Here', font=("times new roman", 25, 'bold'), fg='#00B0FF').place(x=700, y=50)
 
         Label(self.root, text='Field Name', font=("times new roman", 20, 'bold'), fg='gray').place(x=700, y=100)
@@ -81,50 +83,53 @@ class App(object):
         # ----------Row 1---------
         # input_text_1 = StringVar() # textvariable=input_text_1,
         self.field1 = ttk.Entry(frame, font=('times new roman', 20)) # FLAT、SUNKEN、RAISED、GROOVE、RIDGE。默认为 FLAT
-        self.type1 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly',
-                             justify=CENTER, values=('1/车类型'),style='TCombobox')
+        self.type1 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=V_list,style='TCombobox')
+        self.clear1 = ttk.Button(text='X', command=lambda :self.clear(self.field1, self.type1), width=1)
+
+
         # ----------Row 2----------
         self.field2 = ttk.Entry(frame, font=('times new roman', 20),  )
-        self.type2 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=('1/车类型'))
+        self.type2 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=V_list)
         # ----------Row 3----------
         self.field3 = ttk.Entry(frame, font=('times new roman', 20),   )
-        self.type3 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=('1/车类型'))
+        self.type3 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=V_list)
         # ----------Row 4----------
         self.field4 = ttk.Entry(frame, font=('times new roman', 20),   )
-        self.type4 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=('1/车类型'))
+        self.type4 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=V_list)
         # ----------Row 5----------
         self.field5 = ttk.Entry(frame, font=('times new roman', 20),   )
-        self.type5 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=('1/车类型'))
+        self.type5 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=V_list)
         # ----------Row 6----------
         self.field6 = ttk.Entry(frame, font=('times new roman', 20),   )
-        self.type6 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=('1/车类型'))
+        self.type6 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=V_list)
         # ----------Row 7----------
         self.field7 = ttk.Entry(frame, font=('times new roman', 20))
-        self.type7 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=('1/车类型'))
+        self.type7 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=V_list)
         # ----------Row 8----------
         self.field8 = ttk.Entry(frame, font=('times new roman', 20), background='pink')
-        self.type8 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=('1/车类型'))
+        self.type8 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=V_list)
         # ----------Row 9----------
         self.field9 = ttk.Entry(frame, font=('times new roman', 20), )
-        self.type9 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=('1/车类型'))
+        self.type9 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=V_list)
         # ----------Row 10----------
         self.field10 = ttk.Entry(frame, font=('times new roman', 20), )
-        self.type10 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=('1/车类型'))
+        self.type10 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=V_list)
         # ----------Row 11----------
         self.field11 = ttk.Entry(frame, font=('times new roman', 20), )
-        self.type11 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=('1/车类型'))
+        self.type11 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=V_list)
         # ----------Row 12----------
         self.field12 = ttk.Entry(frame, font=('times new roman', 20), )
-        self.type12 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=('1/车类型'))
+        self.type12 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=V_list)
         # ----------Row 13----------
         self.field13 = ttk.Entry(frame, font=('times new roman', 20), )
-        self.type13 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=('1/车类型'))
+        self.type13 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=V_list)
         # ----------Row 14----------
         self.field14 = ttk.Entry(frame, font=('times new roman', 20), )
-        self.type14 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=('1/车类型'))
+        self.type14 = ttk.Combobox(frame, font=('times new roman', 15), state='readonly', justify=CENTER, values=V_list)
 
         canvas.create_window(110, 22, window=self.field1)
         canvas.create_window(315, 22, window=self.type1)
+        canvas.create_window(430, 22, window=self.clear1)
         canvas.create_window(110, 60, window=self.field2)
         canvas.create_window(315, 60, window=self.type2)
         canvas.create_window(110, 98, window=self.field3)
@@ -180,11 +185,14 @@ class App(object):
 
         print(p=='id', l=="1/车类型")
 
+    def clear(self, widget, sel_widget):
+        widget.delete(0, END)
+        sel_widget.delete(0, END)
     def add_button(self, i):
         field = Entry(self.root, font=('times new roman', 20),  text=str(i))
         field.place(x=50, y=230, width=200, height=40)
         # field.pack()
-        type = ttk.Combobox(self.root, font=('times new roman', 15), state='readonly', justify=CENTER, values=('1/车类型'),
+        type = ttk.Combobox(self.root, font=('times new roman', 15), state='readonly', justify=CENTER, values=V_list,
                             text=str(i))
         type.place(x=255, y=233, width=200, height=35)
         # type.pack()
