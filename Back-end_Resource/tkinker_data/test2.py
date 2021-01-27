@@ -1,24 +1,39 @@
-from tkinter import ttk  # Normal Tkinter.* widgets are not themed!
-from ttkthemes import ThemedTk, THEMES
+from tkinter import *
+from ttkthemes import ThemedTk
+from tkinter import ttk
+def data():
+    for i in range(50):
+        ttk.Entry(frame, font=('times new roman', 20), ).grid(row=i,column=1)
+        Label(frame,text="my text"+str(i)).grid(row=i,column=1)
+        Label(frame,text="..........").grid(row=i,column=2)
+
+# 少了这个就滚动不了
+def myfunction(event):
+    canvas.configure(scrollregion=canvas.bbox("all"),width=200,height=200)
+
+root=ThemedTk()
+sizex = 800
+sizey = 600
+posx  = 100
+posy  = 100
+root.wm_geometry("%dx%d+%d+%d" % (sizex, sizey, posx, posy))
+
+myframe=Frame(root,relief=GROOVE,width=600,height=500,bd=1)
+myframe.place(x=300,y=100, width=400, height=400)
 
 
-pixmap_themes = [
-   "arc",
-   "blue",
-   "clearlooks",
-   "elegance",
-   "kroc",
-   "plastik",
-   "radiance",
-   "winxpblue"
-]
 
-azx = ['winxpblue', 'kroc', 'scidpurple', 'adapta', 'black', 'alt', 'arc', 'plastik', 'default', 'scidpink', 'itft1', 'elegance', 'scidmint', 'scidblue', 'scidgreen', 'scidsand', 'yaru', 'aqua', 'aquativo', 'breeze', 'blue', 'scidgrey', 'clearlooks', 'clam', 'ubuntu', 'classic', 'keramik', 'equilux', 'radiance', 'smog']
 
-window = ThemedTk()
-window.geometry('400x500+0+0')
-print(window.get_themes())
-window.set_theme_advanced(pixmap_themes[5])
-ttk.Button(window, text="Quit").pack()
+canvas=Canvas(myframe)
+frame=Frame(canvas)
+myscrollbar=Scrollbar(myframe,orient="vertical",command=canvas.yview)
+canvas.configure(yscrollcommand=myscrollbar.set,)
 
-window.mainloop()
+myscrollbar.pack(side="right",fill="y")
+canvas.pack(side="left")
+canvas.create_window((100,0),window=frame,anchor='nw')
+frame.bind("<Configure>",myfunction)
+
+
+data()
+root.mainloop()

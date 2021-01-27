@@ -2,6 +2,8 @@
 import tkinter as tk
 from tkinter import ttk
 
+
+
 focusBorderImageData = '''
     R0lGODlhQABAAPcAAHx+fMTCxKSipOTi5JSSlNTS1LSytPTy9IyKjMzKzKyq
     rOzq7JyanNza3Ly6vPz6/ISChMTGxKSmpOTm5JSWlNTW1LS2tPT29IyOjMzO
@@ -82,42 +84,46 @@ borderImageData = '''
     J4744oZzXUEDHQxwN7F5G7QRdXxPoPkAnHfu+eeghw665n1vIKhJBQUEADs=
 '''
 
-root = tk.Tk()
-style = ttk.Style()
-borderImage = tk.PhotoImage("borderImage", data=borderImageData)
-focusBorderImage = tk.PhotoImage("focusBorderImage", data=focusBorderImageData)
+def show():
+    root = tk.Tk()
+    style = ttk.Style()
+    borderImage = tk.PhotoImage("borderImage", data=borderImageData)
+    focusBorderImage = tk.PhotoImage("focusBorderImage", data=focusBorderImageData)
 
-style.element_create("RoundedFrame",
-                     "image", borderImage,
-                     ("focus", focusBorderImage),
-                     border=16, sticky="nsew")
-style.layout("RoundedFrame",
-             [("RoundedFrame", {"sticky": "nsew"})])
+    style.element_create("RoundedFrame",
+                         "image", borderImage,
+                         ("focus", focusBorderImage),
+                         border=16, sticky="nsew")
+    style.layout("RoundedFrame",
+                 [("RoundedFrame", {"sticky": "nsew"})])
 
-frame1 = ttk.Frame(style="RoundedFrame", padding=10)
-text1 = tk.Text(frame1, borderwidth=0, highlightthickness=0, wrap="word",
-                width=4, height=2)
-text1.tag_configure("center", justify='center')
-text1.insert("1.0", "text")
-text1.tag_add("center", "1.0", "end")
-text1.pack(fill="both", expand=True)
+    frame1 = ttk.Frame(style="RoundedFrame", padding=10)
+    text1 = tk.Text(frame1, borderwidth=0, highlightthickness=0, wrap="word",
+                    width=4, height=2)
+    text1.tag_configure("center", justify='center')
+    text1.insert("1.0", "text")
+    text1.tag_add("center", "1.0", "end")
+    text1.pack(fill="both", expand=True)
 
-text1.bind("<FocusIn>", lambda event: frame1.state(["focus"]))
-text1.bind("<FocusOut>", lambda event: frame1.state(["!focus"]))
-text1.insert("end", "This widget has the focus")
+    text1.bind("<FocusIn>", lambda event: frame1.state(["focus"]))
+    text1.bind("<FocusOut>", lambda event: frame1.state(["!focus"]))
+    text1.insert("end", "This widget has the focus")
 
-frame2 = ttk.Frame(style="RoundedFrame", padding=10)
-text2 = tk.Text(frame2, borderwidth=0, highlightthickness=0, wrap="word",
-                width=40, height=4)
-text2.pack(fill="both", expand=True)
-text2.bind("<FocusIn>", lambda event: frame2.state(["focus"]))
-text2.bind("<FocusOut>", lambda event: frame2.state(["!focus"]))
-text2.insert("end", "This widget does not have the focus")
+    frame2 = ttk.Frame(style="RoundedFrame", padding=10)
+    text2 = tk.Text(frame2, borderwidth=0, highlightthickness=0, wrap="word",
+                    width=40, height=4)
+    text2.pack(fill="both", expand=True)
+    text2.bind("<FocusIn>", lambda event: frame2.state(["focus"]))
+    text2.bind("<FocusOut>", lambda event: frame2.state(["!focus"]))
+    text2.insert("end", "This widget does not have the focus")
 
-root.configure(background="white")
-frame1.pack(side="top", fill="both", expand=True, padx=20, pady=20)
-frame2.pack(side="top", fill="both", expand=True, padx=20, pady=20)
+    root.configure(background="white")
+    frame1.pack(side="top", fill="both", expand=True, padx=20, pady=20)
+    frame2.pack(side="top", fill="both", expand=True, padx=20, pady=20)
 
-frame1.focus_set()
+    frame1.focus_set()
 
-root.mainloop()
+    root.mainloop()
+
+if __name__ == '__main__':
+    show()
