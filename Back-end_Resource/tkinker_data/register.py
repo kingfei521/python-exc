@@ -6,6 +6,7 @@ from ttkthemes import ThemedTk
 # import tkinter.font as tkfont
 # from test import show
 # import operator
+from comm import File
 from template import TEMPLATES
 # from comm import *
 
@@ -20,26 +21,10 @@ pixmap_themes = [
    "radiance",
    "winxpblue"
 ]
-V_list = tuple(TEMPLATES.keys())
+V_list = TEMPLATES
 
 
-# class SingletonType(type):
-#     _instance_lock = threading.Lock()
-#     def __call__(cls, *args, **kwargs):
-#         if not hasattr(cls, "_instance"):
-#             with SingletonType._instance_lock:
-#                 if not hasattr(cls, "_instance"):
-#                     cls._instance = super(SingletonType,cls).__call__(*args, **kwargs)
-#         return cls._instance
-#
-#
-# class Foo(metaclass=SingletonType):
-#     def __init__(self, root):
-#         self.name = ttk.Checkbutton(root, text='array')
-#         # self.name.pack()
-#
-#         # self.name.state(['selected'])
-#         # self.name.place(x=x, y=y)
+
 
 
 
@@ -51,6 +36,7 @@ class App(object):
         self.root.geometry('1250x700+0+0')
         # self.root.resizable(0, 0)
         self.input_queue = []
+        self.val = []
         self.root.set_theme_advanced(pixmap_themes[0])
         # print(self.root.get_themes())
         # sh = ttk.Separator(root, orient=HORIZONTAL)
@@ -178,38 +164,37 @@ class App(object):
         canvas.create_window(315, 516, window=self.type14)
 # ----------
 
+        # ------------可变 ----------
+        name = ttk.Checkbutton(self.root, text='array', takefocus=0, variable=1)
+        name.place(x=905, y=575)
+        name.state(['selected'])
+        name.place_forget()
 
 
+        entry_1 = ttk.Entry(self.root, width=20, state='disabled')
+        entry_1.place(x=700, y=583)
+        entry_1.place_forget()
 
+        ttk.Label(self.root, text='#Rows：', font=("times new roman", 20, 'bold')).place(x=500, y=575)
+        self.rows = ttk.Entry(self.root, font=('times new roman', 20,))
+        self.rows.insert(0, 1000)
+        self.rows.place(x=585, y=570, width=100)
 
-        frame2 = Frame(self.root)
-        frame2.config(bg='red')
-        # frame2.place(x=-80, y=450, width=500, height=300)
-        # frame1.pack()
-
-
-        # ------Download button--------
-        btn = ttk.Button(frame2, text='Download', cursor='hand2', command=self.down)
-        btn.place(x=200, y=800, width=150)  # x=1040, y=640,
-        # btn.grid(column=1, row=1)
-        btn.pack()
-
-
-        Label(frame2, text='#Rows：', font=("times new roman", 20, 'bold'), fg='gray').place(x=20, y=20)
-        self.rows = ttk.Entry(frame2, font=('times new roman', 20,))
-        self.rows.insert(0, 100)
-        self.rows.place(x=800, y=583, width=100)
-        # self.rows.pack()
-
-
-        Label(frame2, text='Format：', font=("times new roman", 20, 'bold'), fg='gray').place(x=816, y=580)
-        self.save_file_type = ttk.Combobox(frame2, font=('times new roman', 15), state='readonly', justify=CENTER,
+        ttk.Label(self.root, text='Format：', font=("times new roman", 20, 'bold')).place(x=690, y=575)
+        self.save_file_type = ttk.Combobox(self.root, font=('times new roman', 15), state='readonly', justify=CENTER,
                                            )
         self.save_file_type['values'] = ('JSON', 'SQL', 'CSV')
-        self.save_file_type.current(0)
-        self.save_file_type.place(x=900, y=583, width=120)
-        self.save_file_type.pack()
-        self.save_file_type.bind('<<ComboboxSelected>>', lambda event: self.callback( btn, self.rows, event,))
+        # self.save_file_type.current(0)
+        self.save_file_type.place(x=780, y=570, width=120)
+        self.save_file_type.bind('<<ComboboxSelected>>', self.callback)
+
+
+
+
+        # # ------Download button--------
+        btn = ttk.Button(self.root, text='Download', cursor='hand2', command=self.down)
+        btn.place(x=1040, y=600, width=150)  # x=1040, y=640,
+
 
         self.input_queue.extend([(self.field1, self.type1),
                                 (self.field2, self.type2),
@@ -228,14 +213,24 @@ class App(object):
                                )
 
 
-    def callback(self, one, two, event):
+
+
+    def callback(self, event):  # 905 575
+        #
         if event.widget.get() == "JSON":
-            one.pack_forget()
-            two.pack_forget()
-        #     # self.a = Foo(self.root, 'arry', 1040, 583)
-        # elif event.widget.get() == 'SQL':
-        #     # self.field.pack_forget()
-        #     # self.b = Foo(self.root, 'sql', 1040, 583)
+            self.clear()
+            a = self.add_radio(self.root, 'array', 905, 575)
+            self.val.append(a)
+        elif event.widget.get() == "SQL":
+            self.clear()
+            a = self.add_entry()
+            self.val.append(a)
+
+    def clear(self):
+        if len(self.val) > 0:
+            for i in self.val:
+                i.destroy()
+
 
 
     def down(self):
@@ -249,22 +244,25 @@ class App(object):
 
         rows = self.rows.get()
         down_type = self.save_file_type.get()
-        # select_status = self.chk.state()
+        select = self.val[-1]
+
         try:
             if rows:
                 if down_type == 'JSON':
-                    pass
+                    if len(select.state()) > 0:
+                        File("MOCK_DATA").save_data_json(rows, save_field)  # 保存为json
                 elif down_type == 'SQL':
-                    pass
+                    print(select.get())
 
         except ValueError as e:
             messagebox.showwarning(title='错误', message='Row is not number or 0: {}'.format(e))
 
 
 
+
     def add_entry(self):
         field = ttk.Entry(self.root, font=('times new roman', 20))  # FLAT、SUNKEN、RAISED、GROOVE、RIDGE。默认为 FLAT
-        field.insert(0, 'id')
+        field.insert(0, 'MOCK_DATA')
         field.place(x=706, y=640, width=100)
         return field
 
@@ -273,10 +271,10 @@ class App(object):
         name.place(x=x, y=y)
         name.state(['selected'])
         return name
-
-    def clear(self, widget, sel_widget):
-        widget.delete(0, END)
-        sel_widget.delete(0, END)
+    #
+    # def clear(self, widget, sel_widget):
+    #     widget.delete(0, END)
+    #     sel_widget.delete(0, END)
 
 if __name__ == '__main__':
 
