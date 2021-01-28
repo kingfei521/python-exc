@@ -1,26 +1,15 @@
-# importing tkinter 
-from tkinter import *
+import tkinter as tk
 from tkinter import ttk
-from tkinter.messagebox import askyesno
+from ttkthemes import ThemedTk
+import time
 
-# creating root 
-root = Tk()
-root.geometry('200x100')
+root =ThemedTk()
+root.geometry('400x400')
+label = ttk.Label(root, text="Text on the screen", font=('Times New Roman',  '80'), )
+label.place(x= 10, y=10)
 
-input_text = StringVar()
+# time.sleep(1000)
 
-# This class is used to add styling 
-# to any widget which are available 
-style = ttk.Style()
-style.configure('TEntry', foreground='green')
+label.destroy()
 
-entry1 = ttk.Entry(root, textvariable=input_text, justify=CENTER,
-                   font=('courier', 15, 'bold'))
-entry1.focus_force()
-entry1.pack(side=TOP, ipadx=30, ipady=10)
-
-save = ttk.Button(root, text='Save', command=lambda: askyesno(
-    'Confirm', 'Do you want to save?'))
-save.pack(side=TOP, pady=10)
-
-root.mainloop() 
+root.mainloop()
