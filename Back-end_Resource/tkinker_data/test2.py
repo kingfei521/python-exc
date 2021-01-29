@@ -5,7 +5,7 @@ class Questions(tk.Tk):
     def __init__(self, *args, **kw):
         super().__init__()
         self.wm_title('CSSE1001 Queue')
-        self.configure(background='white')
+        self.configure(background='black')
         self.wm_minsize(1440, 776)  # 设置窗口最小化大小
         self.wm_maxsize(1440, 2800)  # 设置窗口最大化大小
         self.resizable(width=False, height=True)  # 设置窗口宽度不可变，高度可变
@@ -17,8 +17,9 @@ class Questions(tk.Tk):
     def refresh_data(self):
         # 需要刷新数据的操作
         # 代码...
-        print('ok')
-        self.after(1, self.refresh_data)  # 这里的10000单位为毫秒
+        print('恭喜')
+
+        self.after(1000, self.refresh_data)  # 这里的10000单位为毫秒
 
     def run(self):
         pass

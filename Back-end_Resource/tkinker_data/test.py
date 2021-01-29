@@ -87,6 +87,7 @@ borderImageData = '''
 def show():
     root = tk.Tk()
     style = ttk.Style()
+    root.geometry('950x750')
     borderImage = tk.PhotoImage("borderImage", data=borderImageData)
     focusBorderImage = tk.PhotoImage("focusBorderImage", data=focusBorderImageData)
 
@@ -108,18 +109,21 @@ def show():
     text1.bind("<FocusIn>", lambda event: frame1.state(["focus"]))
     text1.bind("<FocusOut>", lambda event: frame1.state(["!focus"]))
     text1.insert("end", "This widget has the focus")
-
-    frame2 = ttk.Frame(style="RoundedFrame", padding=10)
-    text2 = tk.Text(frame2, borderwidth=0, highlightthickness=0, wrap="word",
-                    width=40, height=4)
-    text2.pack(fill="both", expand=True)
-    text2.bind("<FocusIn>", lambda event: frame2.state(["focus"]))
-    text2.bind("<FocusOut>", lambda event: frame2.state(["!focus"]))
-    text2.insert("end", "This widget does not have the focus")
-
     root.configure(background="white")
     frame1.pack(side="top", fill="both", expand=True, padx=20, pady=20)
-    frame2.pack(side="top", fill="both", expand=True, padx=20, pady=20)
+
+
+
+    # frame2 = ttk.Frame(style="RoundedFrame", padding=10)
+    # text2 = tk.Text(frame2, borderwidth=0, highlightthickness=0, wrap="word",
+    #                 width=40, height=4)
+    # text2.pack(fill="both", expand=True)
+    # text2.bind("<FocusIn>", lambda event: frame2.state(["focus"]))
+    # text2.bind("<FocusOut>", lambda event: frame2.state(["!focus"]))
+    # text2.insert("end", "This widget does not have the focus")
+    # frame2.pack(side="top", fill="both", expand=True, padx=20, pady=20)
+
+
 
     frame1.focus_set()
 
