@@ -2,14 +2,35 @@ from tkinter import Menu
 
 from tkinter import *
 
+from ttkthemes import ThemedTk
+
 
 def donothing():
     filewin = Toplevel(root)
     button = Button(filewin, text="Do nothing button")
     button.pack()
+Themes = [
+    'adapta',  # 自适应式主题
+    'aquativo',  # ?
+    'arc',  #
+    'black',
+    'blue',
+    'breeze',
+    'clearlooks',
+    'elegance',
+    'equilux',
+    'itft1',
+    'keramik',
+    'kroc',
+    'plastik',
+    'radiance',
+    'scid themes',
+    'smog',
+    'winxpblue',
+    'yaru'
+]
 
-
-root = Tk()
+root = ThemedTk(theme=Themes[2])
 menubar = Menu(root)
 filemenu = Menu(menubar, tearoff=0)
 filemenu.add_command(label="New", command=donothing)
@@ -40,4 +61,6 @@ helpmenu.add_command(label="About...", command=donothing)
 menubar.add_cascade(label="Help", menu=helpmenu)
 
 root.config(menu=menubar)
+Entry(root).pack()
+
 root.mainloop()
