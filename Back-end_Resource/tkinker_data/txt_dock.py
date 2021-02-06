@@ -1,5 +1,6 @@
 # adapted from http://wiki.tcl.tk/%0920152
 import tkinter as tk
+from collections import deque
 from tkinter import ttk
 
 
@@ -84,13 +85,32 @@ borderImageData = '''
     J4744oZzXUEDHQxwN7F5G7QRdXxPoPkAnHfu+eeghw665n1vIKhJBQUEADs=
 '''
 
+obj = deque(maxlen=2)
+
+def text_click(event, frame1):
+    if event.widget.cget('wrap') == 'word':
+        event.widget.configure(width=90, height=50)
+        frame1.grid_forget()
+        frame1.pack(side='top', expand=True, padx=40, pady=40)
+        obj.append(event)
+        obj.append(frame1)
+
+
+def text_double_click(event):
+    if obj != 0:
+        obj[0].widget.configure(width=20, height=15)
+        obj[1].grid()
+
+    return
+
+
 def show():
     root = tk.Tk()
+    root.bind('<Double-1>', lambda event: text_double_click(event))
     style = ttk.Style()
     root.geometry('950x750')
     borderImage = tk.PhotoImage("borderImage", data=borderImageData)
     focusBorderImage = tk.PhotoImage("focusBorderImage", data=focusBorderImageData)
-
     style.element_create("RoundedFrame",
                          "image", borderImage,
                          ("focus", focusBorderImage),
@@ -99,8 +119,9 @@ def show():
                  [("RoundedFrame", {"sticky": "nsew"})])
 
     frame1 = ttk.Frame(style="RoundedFrame", padding=10)
+
     text1 = tk.Text(frame1, borderwidth=0, highlightthickness=0, wrap="word",
-                    width=4, height=2)
+                    width=20, height=15)
     text1.tag_configure("center", justify='center')
     text1.insert("1.0", "text")
     text1.tag_add("center", "1.0", "end")
@@ -108,10 +129,13 @@ def show():
 
     text1.bind("<FocusIn>", lambda event: frame1.state(["focus"]))
     text1.bind("<FocusOut>", lambda event: frame1.state(["!focus"]))
-    text1.insert("end", "This widget has the focus")
-    root.configure(background="white")
-    frame1.pack(side="top", fill="both", expand=True, padx=20, pady=20)
+    text1.bind("<Button-1>", lambda event: text_click(event, frame1))
 
+    text1.insert("end", borderImageData)
+    root.configure(background="white")
+    # frame1.config(fill='both')
+    # frame1.pack(side='top', expand=True, padx=40, pady=40)
+    frame1.grid(row=0, column=0)
 
 
     # frame2 = ttk.Frame(style="RoundedFrame", padding=10)
