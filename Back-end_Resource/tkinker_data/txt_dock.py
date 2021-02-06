@@ -87,26 +87,43 @@ borderImageData = '''
 
 obj = deque(maxlen=2)
 
-def text_click(event, frame1):
+def text_click(event, frame):
     if event.widget.cget('wrap') == 'word':
         event.widget.configure(width=90, height=50)
-        frame1.grid_forget()
-        frame1.pack(side='top', expand=True, padx=40, pady=40)
+        frame.grid_forget()
+        frame.pack(side='top', expand=True, padx=40, pady=40)
         obj.append(event)
-        obj.append(frame1)
+        obj.append(frame)
 
 
 def text_double_click(event):
     if obj != 0:
         obj[0].widget.configure(width=20, height=15)
         obj[1].grid()
-
     return
 
+
+class Text_Custom(object):
+
+    def __init__(self, style):
+        self.style = style
+
+    def text(self, context, w=20, h=15):
+        self.frame = ttk.Frame(style=self.style, padding=10)
+        text1 = tk.Text(self.frame, borderwidth=0, highlightthickness=0, wrap="word",
+                        width=20, height=15)
+        # text1.tag_configure("center", justify='center')
+        text1.insert("1.0", context)  # 在第一行插入数据
+        # text1.tag_add("end", "1.0", "end")
+        text1.pack(fill=tk.BOTH , expand=True)
+        text1.bind("<FocusIn>", lambda event: self.frame.state(["focus"]))
+        text1.bind("<FocusOut>", lambda event: self.frame.state(["!focus"]))
+        return self.frame, text1
 
 def show():
     root = tk.Tk()
     root.bind('<Double-1>', lambda event: text_double_click(event))
+
     style = ttk.Style()
     root.geometry('950x750')
     borderImage = tk.PhotoImage("borderImage", data=borderImageData)
@@ -118,24 +135,18 @@ def show():
     style.layout("RoundedFrame",
                  [("RoundedFrame", {"sticky": "nsew"})])
 
-    frame1 = ttk.Frame(style="RoundedFrame", padding=10)
 
-    text1 = tk.Text(frame1, borderwidth=0, highlightthickness=0, wrap="word",
-                    width=20, height=15)
-    text1.tag_configure("center", justify='center')
-    text1.insert("1.0", "text")
-    text1.tag_add("center", "1.0", "end")
-    text1.pack(fill="both", expand=True)
-
-    text1.bind("<FocusIn>", lambda event: frame1.state(["focus"]))
-    text1.bind("<FocusOut>", lambda event: frame1.state(["!focus"]))
-    text1.bind("<Button-1>", lambda event: text_click(event, frame1))
-
-    text1.insert("end", borderImageData)
-    root.configure(background="white")
-    # frame1.config(fill='both')
-    # frame1.pack(side='top', expand=True, padx=40, pady=40)
+    frame1, text= Text_Custom('RoundedFrame').text(borderImageData)
+    text.bind("<Button-1>", lambda event: text_click(event, frame1))
     frame1.grid(row=0, column=0)
+    frame1.focus_set()  # 默认聚焦在此标签上
+
+    frame2, text2 = Text_Custom('RoundedFrame').text(borderImageData)
+    text2.bind("<Button-1>", lambda event: text_click(event, frame2))
+    frame2.grid(row=0, column=1, padx=20)
+    # frame2.focus_set()  # 默认聚焦在此标签上
+
+
 
 
     # frame2 = ttk.Frame(style="RoundedFrame", padding=10)
@@ -149,8 +160,8 @@ def show():
 
 
 
-    frame1.focus_set()
 
+    #
     root.mainloop()
 
 if __name__ == '__main__':

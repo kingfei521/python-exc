@@ -17,7 +17,7 @@ def call(event1, filewin, p):
 def donothing(event, p):
     filewin = Toplevel(master)
     a = Label(filewin, text="Fast Name1 \n刘欢 \n迪丽热巴", wraplength=220, justify=tkinter.LEFT, bg='red')
-    # a.bind('<Button-1>', lambda event1: call(event1,  filewin))
+    a.bind('<Button-1>', lambda event1: call(event1,  filewin, p))
     a.grid(row=1, column=1, padx=10, pady=10)
     b = Label(filewin, text="Fast Name2 \n刘欢 \n迪丽热巴", wraplength=220, justify=tkinter.LEFT, bg='red')
     b.bind('<Button-1>', lambda event1: call(event1, filewin, p))
@@ -39,11 +39,13 @@ def donothing(event, p):
 
 v = StringVar()
 p = ttk.Entry(master, textvariable=v)
-
 p.grid(row=0, column=0)
-
-
 p.bind("<Button-1>", lambda event: donothing(event, v))
+
+v1 = StringVar()
+p1 = ttk.Entry(master, textvariable=v1)
+p1.grid(row=0, column=1)
+p1.bind("<Button-1>", lambda event: donothing(event, v1))
 
 # master.grab_set()
 # master.grab_release()
