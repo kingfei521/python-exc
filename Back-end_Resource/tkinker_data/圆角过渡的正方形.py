@@ -17,7 +17,7 @@ def make_round_corners_rect(canvas, x0, y0, x1, y1, ratio=0.2, filled=True, fill
     # tld = x0, y0 + r
     # tlr = x0 + r, y0
     # item = canvas.create_arc(x0, y0, x0 + 2 * r, y0 + 2 * r, start=90, extent=90, fill='', outline='black',
-    #                          style=tk.ARC)
+    #                          style.css=tk.ARC)
     # items.append(item)
     #
     # top_right = x1, y0
@@ -25,7 +25,7 @@ def make_round_corners_rect(canvas, x0, y0, x1, y1, ratio=0.2, filled=True, fill
     # trd = x1, y0 + r
     # item = canvas.create_line(*tlr, *trl, fill='black')
     # items.append(item)
-    # item = canvas.create_arc(x1 - 2 * r, y0, x1, y0 + 2 * r, start=0, extent=90, fill='', outline='black', style=tk.ARC)
+    # item = canvas.create_arc(x1 - 2 * r, y0, x1, y0 + 2 * r, start=0, extent=90, fill='', outline='black', style.css=tk.ARC)
     # items.append(item)
     #
     # bot_right = x1, y1
@@ -34,7 +34,7 @@ def make_round_corners_rect(canvas, x0, y0, x1, y1, ratio=0.2, filled=True, fill
     # item = canvas.create_line(*trd, *bru, fill='black')
     # items.append(item)
     # item = canvas.create_arc(x1 - 2 * r, y1 - 2 * r, x1, y1, start=270, extent=90, fill='', outline='black',
-    #                          style=tk.ARC)
+    #                          style.css=tk.ARC)
     # items.append(item)
     #
     # bot_left = x0, y1
@@ -43,7 +43,7 @@ def make_round_corners_rect(canvas, x0, y0, x1, y1, ratio=0.2, filled=True, fill
     # item = canvas.create_line(*brl, *blr, fill='black')
     # items.append(item)
     # item = canvas.create_arc(x0, y1 - 2 * r, x0 + 2 * r, y1, start=180, extent=90, fill='', outline='black',
-    #                          style=tk.ARC)
+    #                          style.css=tk.ARC)
     # items.append(item)
     # item = canvas.create_line(*blu, *tld, fill='white')
     # items.append(item)

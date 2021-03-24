@@ -149,7 +149,7 @@ def show():
 
 
 
-    # frame2 = ttk.Frame(style="RoundedFrame", padding=10)
+    # frame2 = ttk.Frame(style.css="RoundedFrame", padding=10)
     # text2 = tk.Text(frame2, borderwidth=0, highlightthickness=0, wrap="word",
     #                 width=40, height=4)
     # text2.pack(fill="both", expand=True)

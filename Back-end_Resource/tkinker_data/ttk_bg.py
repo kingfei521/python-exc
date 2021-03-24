@@ -33,11 +33,11 @@ window.configure(background='pink')
 
 
 s = ttk.Style()
-# Create style used by default for all Frames
+# Create style.css used by default for all Frames
 s.configure('TFrame', background='green')
-# Create style for the first frame
+# Create style.css for the first frame
 s.configure('Frame1.TFrame', background='red')
-# Create style for the second frame
+# Create style.css for the second frame
 s.configure('Frame2.TFrame', background='blue')
 
 # …………………………
