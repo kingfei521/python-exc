@@ -129,7 +129,7 @@ def show():
     borderImage = tk.PhotoImage("borderImage", data=borderImageData)
     focusBorderImage = tk.PhotoImage("focusBorderImage", data=focusBorderImageData)
     style.element_create("RoundedFrame",
-                         "image", borderImage,
+                         "images", borderImage,
                          ("focus", focusBorderImage),
                          border=16, sticky="nsew")
     style.layout("RoundedFrame",
